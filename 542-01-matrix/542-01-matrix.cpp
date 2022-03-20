@@ -9,6 +9,7 @@ public:
                 else mat[i][j]=-1;
             }
         }
+        vector<vector<int>> adder={{-1,0},{1,0},{0,-1},{0,1}};
         while(!q.empty()){
             int i=q.front().first,j=q.front().second;
             q.pop();
