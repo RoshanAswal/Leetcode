@@ -15,14 +15,14 @@ void printArray(int arr[], int size)
  // } Driver Code Ends
 class Solution
 {
-    public:
+  public:
     //Function to sort an array using quick sort algorithm.
     void quickSort(int arr[], int low, int high)
     {
         if(low<high){
             int par=partition(arr,low,high);
-            quickSort(arr,low,par-1);
-            quickSort(arr,par+1,high);
+            quickSort(arr,low,par);
+            quickSort(arr,par+2,high);
         }
     }
     
@@ -32,12 +32,12 @@ class Solution
        int k=arr[low];
        int l=low,r=high;
        while(l<r){
-           while(arr[l]<=k)l++;
-           while(arr[r]>k)r--;
+           while(l<=r && arr[l]<=k)l++;
+           while(l<=r && arr[r]>k)r--;
            if(l<r)swap(arr[l],arr[r]);
        }
        swap(arr[low],arr[r]);
-       return r;
+       return r-1;
     }
 };
 
