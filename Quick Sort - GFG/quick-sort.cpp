@@ -32,8 +32,8 @@ class Solution
        int k=arr[low];
        int l=low,r=high;
        while(l<r){
-           while(l<=r && arr[l]<=k)l++;
-           while(l<=r && arr[r]>k)r--;
+           while(arr[l]<=k)l++;
+           while(arr[r]>k)r--;
            if(l<r)swap(arr[l],arr[r]);
        }
        swap(arr[low],arr[r]);
