@@ -1,15 +1,19 @@
 class Solution {
 public:
-    int dp[5001][301];
-    Solution(){memset(dp,-1,sizeof dp);}
-    int sol(int am,int n,vector<int> &coins){
-        if(am==0)return 1;
-        if(am<=0 || n==0)return 0;
-        if(dp[am][n]!=-1)return dp[am][n];
-        dp[am][n]=sol(am-coins[n-1],n,coins)+sol(am,n-1,coins);
-        return dp[am][n];
-    }
     int change(int amount, vector<int>& coins) {
-        return sol(amount,coins.size(),coins);
+        int dp[coins.size()+1][amount+1];
+        for(int i=0;i<=coins.size();i++)
+            dp[i][0]=1;
+        for(int i=1;i<=amount;i++)
+            dp[0][i]=0;
+        for(int i=1;i<=coins.size();i++){
+            for(int j=1;j<=amount;j++){
+                if(coins[i-1]<=j)
+                    dp[i][j]=dp[i-1][j]+dp[i][j-coins[i-1]];
+                else
+                    dp[i][j]=dp[i-1][j];
+            }
+        }
+        return dp[coins.size()][amount];
     }
 };
