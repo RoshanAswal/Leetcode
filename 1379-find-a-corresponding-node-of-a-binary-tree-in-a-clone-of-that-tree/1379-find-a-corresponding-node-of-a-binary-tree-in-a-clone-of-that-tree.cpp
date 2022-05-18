@@ -10,17 +10,18 @@
 
 class Solution {
 public:
-    TreeNode* ans=NULL;
-    void sol(TreeNode* clon,int val){
+    // TreeNode* ans=NULL;
+    void sol(TreeNode* clon,int val,TreeNode* &ans){
         if(!clon || ans!=NULL)return;
         if(clon->val==val){
             ans=clon;return;
         }
-        sol(clon->left,val);
-        sol(clon->right,val);
+        sol(clon->left,val,ans);
+        sol(clon->right,val,ans);
     }
     TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
-        sol(cloned,target->val);
+        TreeNode* ans=NULL;
+        sol(cloned,target->val,ans);
         return ans;
     }
 };
