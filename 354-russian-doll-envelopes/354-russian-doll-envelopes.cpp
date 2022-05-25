@@ -9,8 +9,15 @@ public:
         for(int i=1;i<temp.size();i++){
             if(ans.size()==0 || ans.back()<temp[i])ans.push_back(temp[i]);
             else{
-                auto it=lower_bound(ans.begin(),ans.end(),temp[i]);
-                *it=temp[i];
+                int l=0,r=ans.size(),ind=0;
+                while(l<r){
+                    int m=l+(r-l)/2;
+                    if(ans[m]<temp[i])l=m+1;
+                    else{
+                        ind=m;r=m;
+                    }
+                }
+                ans[ind]=temp[i];
             }
         }
         return ans.size();
