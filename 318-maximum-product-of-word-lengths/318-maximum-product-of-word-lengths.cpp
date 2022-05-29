@@ -8,15 +8,11 @@ public:
     }
     int maxProduct(vector<string>& words) {
         vector<vector<int>> st;
-        sort(words.begin(),words.end());
         for(int i=0;i<words.size();i++){
             vector<int> temp(26,0);
             for(char &c:words[i])
                 temp[c-'a']=1;
             st.push_back(temp);
-            string s=words[i];
-            sort(s.begin(),s.end());
-            words[i]=s;
         }
         int ans=0;
         for(int i=0;i<words.size();i++){
@@ -25,7 +21,6 @@ public:
             for(int j=i+1;j<words.size();j++){
                 int l2=words[j].length();
                 if(check(i,j,st)){
-                    // cout<<"yes"<<endl;
                     ans=max(ans,l1*l2);
                 }
             }
