@@ -1,18 +1,16 @@
 class Solution {
 public:
     int countNumbersWithUniqueDigits(int n) {
-        if(n==0)return 1;
-        if(n==1)return 10;
-        if(n==2)return 91;
-        int k=3;
-        int prev=91,prod=81,num=8,curr=91;
-        while(k<=n){
-            prod*=num;
-            num--;
-            prev=curr;
-            curr+=prod;
-            k++;
+        int prev=1,k=9;
+        if(n==0)return prev;
+        vector<int> dp(n+1);
+        dp[0]=1;
+        dp[1]=10;
+        for(int i=2;i<=n;i++){
+            dp[i]=dp[i-1]*k+prev;
+            prev+=dp[i-1];
+            k--;
         }
-        return curr;
+        return dp[n];
     }
 };
