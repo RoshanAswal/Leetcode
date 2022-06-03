@@ -1,23 +1,19 @@
 class NumMatrix {
 public:
-    vector<vector<int>> mati;
-    NumMatrix(vector<vector<int>>& mat) {
-        mati=mat;
-        for(int i=0;i<mati.size();i++){
-            for(int j=1;j<mati[0].size();j++){
-                mati[i][j]+=mati[i][j-1];
-            }
+    vector<vector<int>> mat;
+    NumMatrix(vector<vector<int>>& matrix) {
+        mat=matrix;
+        for(int i=0;i<matrix.size();i++){
+            for(int j=1;j<matrix[i].size();j++)
+                mat[i][j]+=mat[i][j-1];
         }
     }
     
     int sumRegion(int row1, int col1, int row2, int col2) {
-        int sum=0,r=row1;
-        while(r<=row2){
-            if(col1!=0)
-                sum+=(mati[r][col2]-mati[r][col1-1]);
-            else
-                sum+=mati[r][col2];
-            r++;
+        int sum=0;
+        for(int i=row1;i<=row2;i++){
+            if(col1==0)sum+=mat[i][col2];
+            else sum+=(mat[i][col2]-mat[i][col1-1]);
         }
         return sum;
     }
