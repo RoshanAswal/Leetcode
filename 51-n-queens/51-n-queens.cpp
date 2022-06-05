@@ -1,43 +1,53 @@
 class Solution {
 public:
-    bool canMove(int i,int j,vector<string>& arr,int n){
-        int row=i,col=j;
-        while(row>=0 && col>=0){
-            if(arr[row][col]=='Q')return false;
-            row--;col--;
+    vector<vector<string>> ans;
+    bool canplace(int x,int y,vector<string> &vec,int n){
+        for(int i=0;i<n;i++){
+            if(vec[x][i]=='Q' || vec[i][y]=='Q')return false;
         }
-        row=i,col=j;
-        while(col>=0){
-            if(arr[row][col]=='Q')return false;
-            col--;
+        int r=x,c=y;
+        while(r>=0 && c>=0){
+            if(vec[r][c]=='Q')return false;
+            r--;c--;
         }
-        row=i,col=j;
-        while(row<n && col>=0){
-            if(arr[row][col]=='Q')return false;
-            row++;col--;
+        r=x,c=y;
+        while(r<n && c<n){
+            if(vec[r][c]=='Q')return false;
+            r++;c++;
+        }
+        r=x,c=y;
+        while(r<n && c>=0){
+            if(vec[r][c]=='Q')return false;
+            r++;c--;
+        }
+        r=x,c=y;
+        while(r>=0 && c<n){
+            if(vec[r][c]=='Q')return false;
+            r--;c++;
         }
         return true;
     }
-    void nqueen(int col,int n,vector<string>& temp,vector<vector<string>>& ans){
-        if(col==n){
-            ans.push_back(temp);
+    void nqueen(int ind,vector<vector<string>> &chess,vector<string> &vec,int n){
+        if(ind==n){
+            chess.push_back(vec);
             return;
         }
-        for(int i=0;i<n;i++){
-            if(canMove(i,col,temp,n)==true){
-                temp[i][col]='Q';
-                nqueen(col+1,n,temp,ans);
-                temp[i][col]='.';
+        for(int j=0;j<n;j++){
+            if(canplace(ind,j,vec,n)){
+                vec[ind][j]='Q';
+                nqueen(ind+1,chess,vec,n);
+                vec[ind][j]='.';
             }
         }
     }
     vector<vector<string>> solveNQueens(int n) {
-        vector<vector<string>> ans;
-        vector<string> arr(n);
-        string s(n,'.');
-        for(int i=0;i<n;i++)
-            arr[i]=s;
-        nqueen(0,n,arr,ans);
-        return ans;
+        vector<vector<string>> chess;
+        vector<string> vec;
+        for(int i=0;i<n;i++){
+            string s(n,'.');
+            vec.push_back(s);
+        }
+        nqueen(0,chess,vec,n);
+        return chess;
     }
 };
