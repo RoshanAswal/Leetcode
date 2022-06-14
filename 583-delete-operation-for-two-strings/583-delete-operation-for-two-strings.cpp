@@ -1,14 +1,13 @@
 class Solution {
 public:
-    int sol(string s,string t,int i,int j,vector<vector<int>> &dp){
-        if(i==s.length() && j==t.length())return 0;
-        if(i==s.length() || j==t.length())return max(s.length()-i,t.length()-j);
-        if(dp[i][j]!=-1)return dp[i][j];
-        if(s[i]==t[j])return sol(s,t,i+1,j+1,dp);
-        return dp[i][j]=min(sol(s,t,i+1,j,dp),sol(s,t,i,j+1,dp))+1;
-    }
-    int minDistance(string word1, string word2) {
-        vector<vector<int>> dp(word1.length()+1,vector<int>(word2.length()+1,-1));
-        return sol(word1,word2,0,0,dp);
+    int minDistance(string s, string t) {
+        vector<vector<int>> dp(size(s)+1,vector<int>(size(t)+1,1));
+        for(int i=0;i<=size(s);i++){
+            for(int j=0;j<=size(t);j++){
+                if(i==0 || j==0)dp[i][j]=i+j;
+                else dp[i][j]=s[i-1]==t[j-1]?dp[i-1][j-1]:1+min(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+        return dp[size(s)][size(t)];
     }
 };
