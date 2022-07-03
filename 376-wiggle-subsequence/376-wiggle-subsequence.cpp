@@ -1,11 +1,11 @@
 class Solution {
 public:
     int wiggleMaxLength(vector<int>& nums) {
-        int u=1,d=1;
+        int l=1,h=1;
         for(int i=1;i<nums.size();i++){
-            if(nums[i]>nums[i-1])u=d+1;
-            else if(nums[i]<nums[i-1])d=u+1;
+            if(nums[i]-nums[i-1]>0)h=l+1;
+            else if(nums[i]-nums[i-1]<0)l=h+1;
         }
-        return max(u,d);
+        return max(l,h);
     }
 };
