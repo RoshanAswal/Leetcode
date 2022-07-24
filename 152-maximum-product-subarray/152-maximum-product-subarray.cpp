@@ -1,12 +1,11 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        int m1=nums[0],m2=nums[0],ans=nums[0];
-        for(int i=1;i<nums.size();i++){
-            if(nums[i]<0)swap(m1,m2);
-            m1=max(nums[i],m1*nums[i]);
-            m2=min(nums[i],m2*nums[i]);
-            ans=max(ans,m1);
+        int ans=nums[0],pre=0,suff=0;
+        for(int i=0;i<nums.size();i++){
+            pre=(pre?pre:1)*nums[i]; // calculating prefix sum
+            suff=(suff?suff:1)*nums[nums.size()-i-1]; // calculating suffix sum
+            ans=max({ans,pre,suff});
         }
         return ans;
     }
