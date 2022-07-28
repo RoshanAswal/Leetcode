@@ -2,11 +2,11 @@ class Solution {
 public:
     bool isAnagram(string s, string t) {
         if(s.length()!=t.length())return false;
-        sort(s.begin(),s.end());
-        sort(t.begin(),t.end());
-        for(int i=0;i<t.length();i++){
-            if(s[i]!=t[i])return false;
+        int s1=1,t1=1;
+        for(int i=0;i<s.length();i++){
+            s1+=(s[i])*((s[i]+1)/2);
+            t1+=(t[i])*((t[i]+1)/2);
         }
-        return true;
+        return s1==t1;
     }
 };
