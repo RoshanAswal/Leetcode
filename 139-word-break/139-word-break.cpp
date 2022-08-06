@@ -1,22 +1,21 @@
 class Solution {
 public:
-    map<string,int> dp;
-    bool sol(string s,set<string> st){
-        if(s.length()==0)return true;
-        if(dp.find(s)!=dp.end())return dp[s];
-        for(int i=1;i<=s.length();i++){
-            string sub=s.substr(0,i);
-            if(st.count(sub) && sol(s.substr(i),st)){
-                dp[sub]=1;
-                return dp[sub];
+    int dp[301];
+    bool sol(string &s,int ind,set<string> &st){
+        if(ind==s.length())return true;
+        if(dp[ind]!=-1)return dp[ind];
+        for(int i=ind;i<s.length();i++){
+            if(st.count(s.substr(ind,i-ind+1)) && sol(s,i+1,st)){
+                dp[ind]=true;     
+                return dp[ind];
             }
         }
-        dp[s]=0;
-        return dp[s];
+        return dp[ind]=false;
     }
     bool wordBreak(string s, vector<string>& wordDict) {
         set<string> st;
-        for(string str:wordDict)st.insert(str);
-        return sol(s,st);
+        memset(dp,-1,sizeof(dp));
+        for(string &s:wordDict)st.insert(s);
+        return sol(s,0,st);
     }
 };
