@@ -1,15 +1,12 @@
 class Solution {
 public:
-    int dp[401];
-    int sol(vector<int> &nums,int ind){
-        if(ind>=nums.size())return 0;
-        if(dp[ind]!=-1)return dp[ind];
-        int a=sol(nums,ind+1);
-        int b=sol(nums,ind+2)+nums[ind];
-        return dp[ind]=max(a,b);
-    }
     int rob(vector<int>& nums) {
-        memset(dp,-1,sizeof(dp));
-        return sol(nums,0);
+        int dp[nums.size()+1];
+        memset(dp,0,sizeof(dp));
+        dp[1]=nums[0];
+        for(int i=2;i<=nums.size();i++){
+            dp[i]=max(dp[i-2]+nums[i-1],dp[i-1]);
+        }
+        return dp[nums.size()];
     }
 };
