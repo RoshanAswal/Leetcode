@@ -1,17 +1,17 @@
 class Solution {
 public:
-    bool canJump(vector<int>& nums) {
-        int dp[nums.size()];
-        for(int i=0;i<nums.size();i++)dp[i]=0;
-        dp[0]=1;
-        for(int i=1;i<nums.size();i++){
-            for(int j=i-1;j>=0;j--){
-                if(dp[j]==1 && (i-j)<=nums[j]){
-                    dp[i]=1;
-                    break;
-                }
-            }
+    int dp[10001];
+    bool sol(int i,vector<int> &nums){
+        if(i==nums.size()-1)return true;
+        if(dp[i]!=-1)return dp[i];
+        for(int j=1;j<=nums[i];j++){
+            dp[i]=sol(i+j,nums);
+            if(dp[i])return true;
         }
-        return dp[nums.size()-1];
+        return false;
+    }
+    bool canJump(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+        return sol(0,nums);
     }
 };
