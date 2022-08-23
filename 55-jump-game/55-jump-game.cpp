@@ -2,6 +2,7 @@ class Solution {
 public:
     int dp[10001];
     bool sol(int i,vector<int> &nums){
+        if(i>=nums.size())return false;
         if(i==nums.size()-1)return true;
         if(dp[i]!=-1)return dp[i];
         for(int j=1;j<=nums[i];j++){
