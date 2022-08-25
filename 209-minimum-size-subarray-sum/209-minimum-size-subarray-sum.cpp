@@ -6,8 +6,15 @@ public:
         int ans=INT_MAX;
         for(int i=n-1;i>=0;i--){
             if(nums[i]<target)break;
-            int j=upper_bound(nums.begin(),nums.end(),nums[i]-target)-nums.begin();
-            ans=min(ans,i-j+1);
+            int l=0,r=n;
+            while(l<r){
+                int m=(l+r)/2;
+                if(nums[m]<=nums[i]-target){
+                    l=m+1;
+                }else r=m;
+            }
+            while(l>=0 && nums[l]<=nums[i]-target)l--;
+            ans=min(ans,abs(i-l)+1);
         }
         return ans==INT_MAX?0:ans;
     }
