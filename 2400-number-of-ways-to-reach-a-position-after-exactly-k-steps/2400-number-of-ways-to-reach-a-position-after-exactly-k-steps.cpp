@@ -1,7 +1,7 @@
-int dp[5005][5005];
-int mod=1e9+7;
 class Solution {
 public:
+    int mod=1e9+7;
+    int dp[3005][3005];
     int sol(int s,int e,int k){
         if(k==0)return s==e;
         if(dp[s][k]!=-1)return dp[s][k];
@@ -11,6 +11,6 @@ public:
     }
     int numberOfWays(int s, int e, int k) {
         memset(dp,-1,sizeof(dp));
-        return sol(s+2000,e+2000,k);
+        return sol(s+1000,e+1000,k);
     }
 };
