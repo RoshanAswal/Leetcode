@@ -1,10 +1,6 @@
 class Solution {
 public:
-    bool checkIfPangram(string s) {
-        string temp="abcdefghijklmnopqrstuvwxyz";
-        sort(s.begin(),s.end());
-        s.erase(unique(s.begin(),s.end()),s.end());
-        if(s.find(temp)==string::npos)return false;
-        return true;
+    bool checkIfPangram(string s,char c='a') {
+        return s.find(c)==string::npos?false:c=='z'?true:checkIfPangram(s,c+1);
     }
 };
