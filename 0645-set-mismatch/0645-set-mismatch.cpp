@@ -1,21 +1,18 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
+        map<int,int> m;
         vector<int> ans(2);
-        int n=nums.size(),num=1,i=0;
-        while(i<n){
-            if(nums[i]!=num){
-                ans[1]=num;
-            }
-            int cnt=0;
-            while(i<n && num==nums[i]){
-                cnt++;i++;
-            }
-            if(cnt>1)ans[0]=num;
-            num++;
+        for(int &i:nums){
+            m[i]++;
+            if(m[i]>1)ans[0]=i;
         }
-        if(ans[1]==0)ans[1]=n;
+        for(int i=1;i<nums.size();i++){
+            if(m.count(i)==0){
+                ans[1]=i;break;
+            }
+        }
+        if(ans[1]==0)ans[1]=nums.size();
         return ans;
     }
 };
