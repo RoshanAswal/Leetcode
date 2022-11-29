@@ -5,20 +5,19 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
 	public:
+	int sol(int arr[],int n,int i,int prev,vector<vector<int>> &dp){
+	    if(i==n)return 0;
+	    if(dp[i][prev+1]!=-1)return dp[i][prev+1];
+        int ans=sol(arr,n,i+1,prev,dp);
+        int ans1=0;
+        if(prev<0 || arr[i]>arr[prev])
+            ans1=sol(arr,n,i+1,i,dp)+arr[i];
+        return dp[i][prev+1]=max(ans,ans1);
+	}
 	int maxSumIS(int arr[], int n)  
 	{  
-	    int dp[n+1];
-	    dp[0]=0;
-	    for(int i=1;i<=n;i++)dp[i]=arr[i-1];
-	    for(int i=1;i<=n;i++){
-	        for(int j=1;j<i;j++){
-	            if(arr[i-1]>arr[j-1]){
-	                dp[i]=max(dp[i],dp[j]+arr[i-1]);
-	            }
-	        }
-	    }
-	    int mx=*max_element(dp,dp+n+1);
-	    return mx;
+        vector<vector<int>> dp(n+1,vector<int>(n+1,-1));
+	    return sol(arr,n,0,-1,dp);
 	}  
 };
 
